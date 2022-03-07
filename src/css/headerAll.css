@@ -32,7 +32,7 @@
   color: #ff6700;
 }
 
-.header-list ul {
+.header-list-ul {
   list-style: none;
   display: flex;
 
@@ -40,7 +40,8 @@
   /* height: 55px; */
 }
 
-.header-list ul li {
+
+.header-list-ul li {
   font-size: 16px;
   /* height: 100px; */
   display: flex;
