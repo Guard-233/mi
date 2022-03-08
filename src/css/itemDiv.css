@@ -1,10 +1,14 @@
+/* 轮播图上的list */
 .left-li {
   position: absolute;
   width: 234px;
   height: 440px;
   background-color: rgba(0, 0, 0, 0.6);
-  left: 19px;
-  top: 140px;
+   /* left: -19px; */
+   left: 50%;
+   /* 使用margin-left，将菜单向左移动613px */
+   margin-left: -612px;
+  top: 141px;
   list-style-type: none;
   padding: 20px 0px 0px;
 }
