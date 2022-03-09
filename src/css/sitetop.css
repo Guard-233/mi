@@ -106,6 +106,7 @@ a {
   overflow: hidden;
   transition: width 2s, height 2s;
   transition: all 1s;
+  z-index: 99;
 }
 
 .app-img-li:hover .app-img-top {
