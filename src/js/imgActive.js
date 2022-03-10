@@ -6,6 +6,7 @@ const next = document.getElementById('next');
 
 const imgs=document.querySelectorAll('.swiper-slide-lu img');
 
+const as=document.querySelectorAll('.pointer a')
 var index = 0;
 
 var lastIndex = 0;
@@ -14,10 +15,12 @@ var lastIndex = 0;
 
 function clearClass() {
   lis[lastIndex].className = 'swiper-slide-li';
+  as[lastIndex].className = 'pointer-a';
 }
 
 function active() {
   lis[index].className = 'swiper-slide-li-active';
+  as[index].className = 'pointer-a-active';
 }
 
 

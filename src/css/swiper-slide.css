@@ -2,7 +2,7 @@
 .swiper-wrapper {
   width: 100%;
   height: 460px;
-  /* background-color: bisque; */
+  
   display: flex;
   justify-content: center;
 }
@@ -24,7 +24,11 @@
 .swiper-slide-li {
   position: absolute;
   width: 100%;
-  opacity: 0;
+  top: 50%;
+  margin-top:-230px ;
+  /* top: 140px;  */
+   opacity: 0;
+   transition: opacity 1s;
 }
 
 /* .swiper-slide-li:first-child{
@@ -69,4 +73,34 @@
 }
 .swiper-button-next:hover {
   background-position: -42px 0;
+}
+
+.pointer {
+  position: absolute;
+  z-index: 999;
+  right: 35px;
+  bottom: 26px;
+}
+
+.pointer a {
+  
+  float: left;
+ 
+  width: 6px;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.4);
+ 
+  border: 2px rgba(255, 255, 255, 0.3) solid;
+  
+  margin-left: 8px;
+
+  border-radius: 50%;
+
+  /* 设置背景的裁剪，使背景颜色不会延伸到边框的下边 */
+  background-clip: padding-box;
+}
+
+.pointer a:hover,
+.pointer a.pointer-a-active {
+  background-color: rgb(163, 29, 29);
 }
