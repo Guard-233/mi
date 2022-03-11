@@ -1,82 +1,78 @@
-const { resolve } = require('path');
+const Webpack = require('webpack')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path') //调用路径
+const HtmlWebpackPlugin = require('html-webpack-plugin')  //引入打包html的插件
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// css分离
+const MiniCssExtractPlgin = require("mini-css-extract-plugin")
 
-const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
-
+const CopyPlugin = require("copy-webpack-plugin")
 module.exports = {
+  mode: 'development',  //开发模式
   entry: './src/js/index.js',
   output: {
-    filtename: 'bulid.js',
-    path: resolve(__dirname, 'bulid'),
+    filename: '[name].js',  //输出文件名
+    path:path.resolve(__dirname,'./dist') //指定生成的文件目录
+  },
+  devServer:{
+    port: 3000,
+    hot: true
   },
   module: {
     rules: [
-      // 处理css
       {
-        test: /\.css$/,
+        test: /\.(png|jpg|gif)$/,
         use: [
-          MiniCssExtractPlugin.loader,,
-           'css-loader',
-          压缩
-           {
-            loader: 'postcss-loader',
+          {
+            loader: 'file-loader',
             options: {
-              ident: 'postcss',
-              plugins: () => [
-                // postcss的插件
-                require('postcss-preset-env')()
-              ]
+              limit: 2048,
+              name: '[name]_[hash:8].[ext]',
+              outputPath: 'image'
             }
           }
-          ],
-      },
-      // js规范
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          // 自动修复eslint的错误
-          fix: true
-        }
+        ]
       },
       {
-        test: /\.(jpg|png|gif|webp)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 8 * 1024,
-          esModule: false,
-          outputPath: 'images/',
-          name: '[name].[ext]',
-        },
+        test:/\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       },
-      // 处理html
       {
-        test: /\.html$/,
-        loader: 'html-loader',
-      },
-    ],
+        test: /\.less$/,
+        use: [
+          {
+            loader: MiniCssExtractPlgin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
+          // 不需要 style-loader，会报错
+          'css-loader',
+          'less-loader'
+        ]
+      }
+    ]
   },
+  // 插件
   plugins: [
+    // html 
     new HtmlWebpackPlugin({
-      template: './src/html/index.html',
-        // 压缩html代码
-        minify: {
-          // 移除空格
-          collapseWhitespace: true,
-          // 移除注释
-          removeComments: true
+      template:  path.resolve(__dirname, './src/index.html'), //文件模板
+      filename:'index.html',  //输出文件名
+    }),
+    // css 分离
+    new MiniCssExtractPlgin({
+      filename: "css/index.css"
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src/img',
+          to: './img'
         }
+      ]
     }),
-    new MiniCssExtractPlugin({
-      // 对输出的css文件进行重命名
-      filename: 'css/built.css'
-    }),
-    // 压缩css
-    new OptimizeCssAssetsWebpackPlugin()
-  ],
-  mode: 'development',
-};
+    // 热更
+    new Webpack.HotModuleReplacementPlugin(),
+  ]
+}
