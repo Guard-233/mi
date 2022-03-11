@@ -9,7 +9,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 module.exports = {
   entry: './src/js/index.js',
   output: {
-    filtename: 'src/bulid.js',
+    filtename: 'bulid.js',
     path: resolve(__dirname, 'bulid'),
   },
   module: {
@@ -20,6 +20,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,,
            'css-loader',
+          压缩
            {
             loader: 'postcss-loader',
             options: {
@@ -32,6 +33,7 @@ module.exports = {
           }
           ],
       },
+      // js规范
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -42,7 +44,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(jpg|png|gif)$/,
+        test: /\.(jpg|png|gif|webp)$/,
         loader: 'url-loader',
         options: {
           limit: 8 * 1024,
